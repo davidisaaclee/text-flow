@@ -1,0 +1,29 @@
+{
+  "name": "text-flow",
+  "version": "1.0.0",
+  "authors": [
+    "David Isaac Lee <david@david-lee.net>"
+  ],
+  "description": "A set of classes for working with and displaying text-like data.",
+  "keywords": [
+    "web-component",
+    "web-components",
+    "polymer",
+    "seed"
+  ],
+  "main": "text-flow.html",
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "https://github.com/davidisaaclee/text-flow/",
+  "ignore": [
+    "/.*",
+    "/test/",
+    "/demo/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "web-component-tester": "*"
+  }
+}
