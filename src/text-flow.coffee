@@ -13,18 +13,18 @@ Polymer
 
   attached: () ->
     unselect = null
-    @addEventListener 'select', (evt) =>
-      evt.stopPropagation()
-      layers = evt.detail.nodeId.split /\s/
-      nodeId = layers[layers.length - 1]
+    # @addEventListener 'select', (evt) =>
+    #   evt.stopPropagation()
+    #   layers = evt.detail.nodeId.split /\s/
+    #   nodeId = layers[layers.length - 1]
 
-      if unselect?
-        unselect()
+    #   if unselect?
+    #     unselect()
 
-      unselect = @highlightNode nodeId,
-        fill: '#ccf'
-        stroke: 'none'
-        borderRadius: 2
+    #   unselect = @highlightNode nodeId,
+    #     fill: '#ccf'
+    #     stroke: 'none'
+    #     borderRadius: 2
 
     @async () =>
       @_paper.setSize @$.body.offsetWidth, @$.body.offsetHeight

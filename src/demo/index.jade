@@ -14,19 +14,19 @@ html(lang='en')
       }
   body
     #container
-      text-flow#root
-        text-flow-line
-          text-flow-piece(node-id='fn') function 
-          text-flow-piece(node-id='fn ident') foo
-          text-flow-piece(node-id='fn') ( 
-          text-flow-piece(node-id='fn arg') arg
-          text-flow-piece(node-id='fn')  ) {
-        text-flow-line(indent=1)
-          text-flow-piece(node-id='line return') return 
-          text-flow-piece(node-id='line return ident') bar
-          text-flow-piece(node-id='line') ;
-        text-flow-line
-          text-flow-piece(node-id='fn') }
+      //- text-flow#root
+      //-   text-flow-line
+      //-     text-flow-piece(node-id='fn') function 
+      //-     text-flow-piece(node-id='fn ident') foo
+      //-     text-flow-piece(node-id='fn') ( 
+      //-     text-flow-piece(node-id='fn arg') arg
+      //-     text-flow-piece(node-id='fn')  ) {
+      //-   text-flow-line(indent=1)
+      //-     text-flow-piece(node-id='line return') return 
+      //-     text-flow-piece(node-id='line return ident') bar
+      //-     text-flow-piece(node-id='line') ;
+      //-   text-flow-line
+      //-     text-flow-piece(node-id='fn') }
       text-flow#root
 
     script(src="text-flow-demo.js")
