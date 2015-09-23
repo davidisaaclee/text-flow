@@ -12,23 +12,8 @@ Polymer
     @_shapes.highlights = {}
 
   attached: () ->
-    unselect = null
-    # @addEventListener 'select', (evt) =>
-    #   evt.stopPropagation()
-    #   layers = evt.detail.nodeId.split /\s/
-    #   nodeId = layers[layers.length - 1]
-
-    #   if unselect?
-    #     unselect()
-
-    #   unselect = @highlightNode nodeId,
-    #     fill: '#ccf'
-    #     stroke: 'none'
-    #     borderRadius: 2
-
     @async () =>
       @_paper.setSize @$.body.offsetWidth, @$.body.offsetHeight
-      # @drawBackground()
 
   updateChildren: () -> do @attached
 
@@ -53,6 +38,9 @@ Polymer
     return () => @_shapes.highlights[nodeId].forEach (shape) -> shape.remove()
 
   drawBackground: () ->
+    if @_shapes.background?
+      @_shapes.background.forEach (shape) -> shape.remove()
+
     attrs =
       fill: '#fcc'
       stroke: 'none'

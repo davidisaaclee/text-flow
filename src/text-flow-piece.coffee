@@ -1,9 +1,6 @@
 Polymer
   is: 'text-flow-piece'
 
-  ready: () ->
-    console.log 'text-flow-piece ready'
-
   properties:
     nodeId:
       type: String
