@@ -1,0 +1,13 @@
+
+<link rel="import" href="../../polymer/polymer.html"/>
+<dom-module id="text-flow-line">
+  <style>
+    :host {
+      box-sizing: border-box;
+    }
+    
+  </style>
+  <template><span style$="{{_tabStyle(indent)}}"></span>
+    <content select="text-flow-piece"></content>
+  </template>
+</dom-module>

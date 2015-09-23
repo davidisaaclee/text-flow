@@ -10,7 +10,8 @@
     "gulp": "^3.9.0",
     "gulp-coffeeify": "^0.1.8",
     "gulp-jade": "^1.0.1",
-    "gulp-sass": "^2.0.1"
+    "gulp-sass": "^2.0.1",
+    "raphael": "^2.1.4"
   },
   "devDependencies": {
     "browserify": "^11.0.1",

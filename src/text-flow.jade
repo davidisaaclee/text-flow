@@ -1,4 +1,6 @@
 link(rel="import", href="../../polymer/polymer.html")
+link(rel="import", href="text-flow-line.html")
+link(rel="import", href="text-flow-piece.html")
 
 dom-module#text-flow
   style.
@@ -6,6 +8,21 @@ dom-module#text-flow
       box-sizing: border-box;
     }
 
+    #body {
+      display: flex;
+      position: relative;
+      flex-flow: column nowrap;
+    }
+
+    #canvas {
+      z-index: -1;
+      position: absolute;
+    }
   template
+    #canvas
+    #body
+      content(select='text-flow-line, text-flow-piece')
 
 script(src="text-flow.js")
+//- script(src="text-flow-line.js")
+//- script(src="text-flow-piece.js")

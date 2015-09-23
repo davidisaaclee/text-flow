@@ -1,64 +1,61 @@
-TreeModel = require 'TreeModel'
-TreeTransformer = require 'TreeTransformer'
+text = """
+attached: () ->
+  unselect = null
+  @addEventListener 'select', (evt) =>
+    evt.stopPropagation()
+    layers = evt.detail.nodeId.split /\\s/
+    nodeId = layers[layers.length - 1]
 
+    if unselect?
+      unselect()
 
-makeDemoElement = () -> new DemoElement()
+    unselect = @highlightNode nodeId,
+      fill: '#ccf'
+      stroke: 'none'
+      borderRadius: 2
+"""
 
-makeBElement = (model) ->
-  () ->
-    elt = document.createElement 'span'
-    elt.innerText = 'spanner'
-    elt.classList.add 'b'
+lns =
+  text
+    .split '\n'
+    .map (ln) ->
+      ln
+        .split '  '
+        .reduce ((acc, pc) ->
+          if pc.length is 0
+          then acc.tabstops++
+          else acc.text += pc
+          return acc),
+          {tabstops: 0, text: ''}
 
-    button = document.createElement 'button'
-    button.innerText = 'Add'
-    elt.appendChild button
-    button.addEventListener 'click', () ->
-      model.put ["__reservedkey#{model.childList.length}__"], type: 'a'
+root = document.querySelector '#root'
 
-    content = document.createElement 'span'
-    content.classList.add 'children'
-    content.classList.add 'b-children'
+root.addEventListener 'select', (evt) ->
+  console.log evt.detail
 
-    elt.appendChild content
+modelToView = () ->
+  lns
+    .map (ln) ->
+      lineElm = document.createElement 'text-flow-line'
+      textElm = document.createElement 'text-flow-piece'
+      textSpan = document.createElement 'span'
 
-    return elt
+      nodeIds = ["ln#{arguments[1]}"]
+      if (ln.text.match /\./)?
+        nodeIds.push 'access'
+      if (ln.text.match /=/)?
+        nodeIds.push 'assignment'
+      if (ln.text.match /\: /)?
+        nodeIds.push 'object'
 
-treeView = document.querySelector '#tree-view'
-# treeView.directAppend = true
-rawModel = new TreeModel type: 'a'
-transformer = new TreeTransformer (val) -> new TreeModel val
+      textSpan.innerText = ln.text
+      textElm.setAttribute 'node-id', (nodeIds.join ' ')
+      lineElm.setAttribute 'indent', ln.tabstops
 
-nodeCount = 0
+      Polymer.dom(textElm).appendChild textSpan
+      Polymer.dom(lineElm).appendChild textElm
+      return lineElm
+    .forEach (lineElm) ->
+      Polymer.dom(root).appendChild lineElm
 
-transformer.addNodeCase \
-  (val, model) -> val.type is 'a',
-  (val, model) ->
-    instantiate: makeDemoElement
-    # getChildrenInsertPoint: (elm) -> elm.querySelector '.children',
-    getChildrenInsertPoint: (elm) -> elm,
-  (val) ->
-    r = new TreeModel val
-    r.nodeKind = "a#{nodeCount++}"
-    return r
-
-transformer.addNodeCase \
-  (val, model) -> val.type is 'b',
-  (val, model) ->
-    instantiate: makeBElement model
-    getChildrenInsertPoint: (elm) -> elm.querySelector '.children',
-  (val) ->
-    r = new TreeModel val
-    r.nodeKind = "b#{nodeCount++}"
-    return r
-
-transformer.watch rawModel, (transformed, original) ->
-  treeView.update transformed
-
-rawModel.batchMutate (model) ->
-  model.put ['a'], type: 'a'
-  model.put ['b'], type: 'b'
-  model.put ['a', 'b1'], type: 'b'
-  model.put ['a', 'a1'], type: 'a'
-  model.put ['a', 'b2'], type: 'b'
-  model.put ['a', 'a2'], type: 'a'
+do modelToView

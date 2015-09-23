@@ -1,12 +1,29 @@
 
 <link rel="import" href="../../polymer/polymer.html"/>
-<dom-module id="tree-view">
+<link rel="import" href="text-flow-line.html"/>
+<link rel="import" href="text-flow-piece.html"/>
+<dom-module id="text-flow">
   <style>
     :host {
       box-sizing: border-box;
     }
     
+    #body {
+      display: flex;
+      position: relative;
+      flex-flow: column nowrap;
+    }
+    
+    #canvas {
+      z-index: -1;
+      position: absolute;
+    }
   </style>
-  <template></template>
+  <template>
+    <div id="canvas"></div>
+    <div id="body">
+      <content select="text-flow-line, text-flow-piece"></content>
+    </div>
+  </template>
 </dom-module>
-<script src="TreeView.js"></script>
+<script src="text-flow.js"></script>

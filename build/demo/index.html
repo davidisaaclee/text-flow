@@ -3,56 +3,38 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-    <title>inline-tree-view demo</title>
+    <title>text-flow demo</title>
     <script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="import" href="../../../polymer/polymer.html">
-    <link rel="import" href="../TreeView.html">
+    <link rel="import" href="../text-flow.html">
     <style>
-      demo-element {
-        display: inline-block;
-        background-color: rgba(100, 40, 40, 0.5);
-        padding: 10px;
-        margin: 10px;
-      }
-      
-      .b {
-        display: inline-block;
-        background-color: green;
-        padding: 10px;
-        margin: 10px;
-      }
-      
-      .root {
-        background-color: blue;
-        padding: 10px;
-        margin: 10px;
+      #container {
+        position: absolute;
+        left: 80px;
       }
     </style>
   </head>
   <body>
-    <tree-view id="tree-view"></tree-view>
-    <dom-module id="demo-element">
-      <style>
-        :host {
-          box-sizing: border-box;
-          display: inline-block;
-        }
-      </style>
-      <template>
-        <div id="container">'Demo Element'</div>
-      </template>
-    </dom-module>
-    <script>
-      DemoElement = Polymer({
-        is: 'demo-element',
-      
-        ready: function () {
-          var children = document.createElement('div');
-          children.classList.add('children');
-          this.$.container.appendChild(children);
-        }
-      });
-    </script>
-    <script src="TreeViewDemo.js"></script>
+    <div id="container">
+      <text-flow id="root">
+        <text-flow-line>
+          <text-flow-piece node-id="fn">function </text-flow-piece>
+          <text-flow-piece node-id="fn ident">foo</text-flow-piece>
+          <text-flow-piece node-id="fn">( </text-flow-piece>
+          <text-flow-piece node-id="fn arg">arg</text-flow-piece>
+          <text-flow-piece node-id="fn"> ) {</text-flow-piece>
+        </text-flow-line>
+        <text-flow-line indent="1">
+          <text-flow-piece node-id="line return">return </text-flow-piece>
+          <text-flow-piece node-id="line return ident">bar</text-flow-piece>
+          <text-flow-piece node-id="line">;</text-flow-piece>
+        </text-flow-line>
+        <text-flow-line>
+          <text-flow-piece node-id="fn">}</text-flow-piece>
+        </text-flow-line>
+      </text-flow>
+      <text-flow id="root"></text-flow>
+    </div>
+    <script src="text-flow-demo.js"></script>
   </body>
 </html>
