@@ -29,6 +29,7 @@ lns =
           {tabstops: 0, text: ''}
 
 root = document.querySelector '#root'
+root.drawBackground = false
 
 root.addEventListener 'select', (evt) ->
   console.log evt.detail
@@ -55,7 +56,14 @@ modelToView = () ->
       Polymer.dom(textElm).appendChild textSpan
       Polymer.dom(lineElm).appendChild textElm
       return lineElm
-    .forEach (lineElm) ->
-      Polymer.dom(root).appendChild lineElm
+    .forEach (lineElm, idx) ->
+      setTimeout \
+        (() ->
+          root.onNextChildAppend () ->
+            console.log 'added child ', idx
+            root._drawBackground()
+
+          Polymer.dom(root).appendChild lineElm),
+        idx * 500
 
 do modelToView

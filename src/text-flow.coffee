@@ -5,7 +5,24 @@ require 'text-flow-piece'
 Polymer
   is: 'text-flow'
 
+  properties:
+    ###
+    Set to `true` to automatically draw a ragged background.
+    ###
+    drawBackground:
+      type: Boolean
+      value: false
+
+  created: () ->
+
   ready: () ->
+    @_mutationCallbacks = []
+    mutObserver = new MutationObserver (records) =>
+      @_mutationCallbacks.forEach (cb) ->
+        cb records
+      @_mutationCallbacks = []
+      do @updateChildren
+    mutObserver.observe @$.body, childList: true
     @_paper = Raphael @$.canvas, @$.body.offsetWidth, @$.body.offsetHeight
 
     @_shapes = {}
@@ -15,8 +32,14 @@ Polymer
     @async () =>
       @_paper.setSize @$.body.offsetWidth, @$.body.offsetHeight
 
-  updateChildren: () -> do @attached
+  updateChildren: () ->
+    do @attached
+    if @drawBackground
+      do @_drawBackground
 
+  ###
+  @return All `text-flow-piece` elements with the specified node ID.
+  ###
   getPiecesForNode: (nodeId) ->
     @getContentChildren()
       .map (elm) ->
@@ -37,7 +60,17 @@ Polymer
 
     return () => @_shapes.highlights[nodeId].forEach (shape) -> shape.remove()
 
-  drawBackground: () ->
+  ###
+  Registers a callback to be invoked on the next successful child append.
+  Destroys callback when invoked.
+
+  @param [Function] cb A function taking in the mutation records as provided by
+    a MutationObserver.
+  ###
+  onNextChildAppend: (cb) ->
+    @_mutationCallbacks.push cb
+
+  _drawBackground: () ->
     if @_shapes.background?
       @_shapes.background.forEach (shape) -> shape.remove()
 
