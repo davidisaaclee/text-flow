@@ -5,9 +5,15 @@ Polymer
     nodeId:
       type: String
       value: ''
+    lineHeight:
+      type: Number
+      value: 20
 
   listeners:
     'up': '_onUp'
+
+  ready: () ->
+    @style.height = "#{@lineHeight}px"
 
   getOffsetRect: () ->
     width: @offsetWidth
