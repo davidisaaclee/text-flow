@@ -1,4 +1,5 @@
 Raphael = require 'raphael'
+_ = require 'lodash'
 require 'text-flow-line'
 require 'text-flow-piece'
 
@@ -70,30 +71,58 @@ Polymer
   onNextChildAppend: (cb) ->
     @_mutationCallbacks.push cb
 
-  _drawBackground: () ->
+  _drawBackground: (attrs) ->
+    fullAttrs = _.defaults attrs,
+      fill: '#fcc'
+
     if @_shapes.background?
       @_shapes.background.forEach (shape) -> shape.remove()
 
-    attrs =
-      fill: '#fcc'
-      stroke: 'none'
-      borderRadius: 4
+    baseline = Infinity
     rects =
       @getContentChildren()
-        .map (child) -> child.getOffsetRect()
+        .map (child) ->
+          r = child.getOffsetRect()
+          if r.left < baseline
+            baseline = r.left
+          return r
+        .map (rect) ->
+          left: baseline
+          top: rect.top
+          width: rect.width + (rect.left - baseline)
+          height: rect.height
 
-    @_drawRects \
+    @_shapes.background = @_drawRects \
       @_paper,
-      attrs,
+      fullAttrs,
       rects
 
   _drawRects: (paper, attrs, rects) ->
     rects.map (rect) ->
-      borderRadius =
-        if attrs.borderRadius?
-        then attrs.borderRadius
-        else 0
-      elm = paper.rect rect.left, rect.top, rect.width, rect.height, borderRadius
+      if attrs.padding?
+        if _.isNumber attrs.padding
+          rect =
+            left: rect.left - attrs.padding
+            top: rect.top - attrs.padding
+            width: rect.width + attrs.padding * 2
+            height: rect.height + attrs.padding * 2
+        else if _.isObject attrs.padding
+          padding = _.defaults attrs.padding,
+            left: 0
+            right: 0
+            top: 0
+            bottom: 0
+          rect =
+            left: rect.left - padding.left
+            top: rect.top - padding.top
+            width: rect.width + (padding.left + padding.right)
+            height: rect.height + (padding.top + padding.bottom)
+
+      # borderRadius =
+      #   if attrs.borderRadius?
+      #   then attrs.borderRadius
+      #   else 0
+      elm = paper.rect rect.left, rect.top, rect.width, rect.height
       for attr, val of attrs
         elm.attr attr, val
       return elm

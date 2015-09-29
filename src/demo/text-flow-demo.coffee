@@ -61,7 +61,13 @@ modelToView = () ->
         (() ->
           root.onNextChildAppend () ->
             console.log 'added child ', idx
-            root._drawBackground()
+            root._drawBackground
+              fill: 'rgba(100, 100, 200, 0.2)'
+              stroke: 'none'
+              r: '2px'
+              padding:
+                right: 10
+
 
           Polymer.dom(root).appendChild lineElm),
         idx * 500
