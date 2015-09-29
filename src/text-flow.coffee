@@ -13,6 +13,9 @@ Polymer
     drawBackground:
       type: Boolean
       value: false
+    backgroundStyle:
+      type: Object
+      value: () -> {}
 
   created: () ->
 
@@ -36,7 +39,7 @@ Polymer
   updateChildren: () ->
     do @attached
     if @drawBackground
-      do @_drawBackground
+      @_drawBackground @backgroundStyle
 
   ###
   @return All `text-flow-piece` elements with the specified node ID.

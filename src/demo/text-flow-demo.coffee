@@ -29,7 +29,13 @@ lns =
           {tabstops: 0, text: ''}
 
 root = document.querySelector '#root'
-root.drawBackground = false
+root.drawBackground = true
+root.backgroundStyle =
+  fill: 'rgba(100, 100, 200, 0.2)'
+  stroke: 'none'
+  r: '2px'
+  padding:
+    right: 10
 
 root.addEventListener 'select', (evt) ->
   console.log evt.detail
@@ -59,14 +65,14 @@ modelToView = () ->
     .forEach (lineElm, idx) ->
       setTimeout \
         (() ->
-          root.onNextChildAppend () ->
-            console.log 'added child ', idx
-            root._drawBackground
-              fill: 'rgba(100, 100, 200, 0.2)'
-              stroke: 'none'
-              r: '2px'
-              padding:
-                right: 10
+          # root.onNextChildAppend () ->
+          #   console.log 'added child ', idx
+          #   root._drawBackground
+          #     fill: 'rgba(100, 100, 200, 0.2)'
+          #     stroke: 'none'
+          #     r: '2px'
+          #     padding:
+          #       right: 10
 
 
           Polymer.dom(root).appendChild lineElm),
