@@ -13,6 +13,7 @@ Polymer
     drawBackground:
       type: Boolean
       value: false
+      observer: '_drawBackgroundChanged'
     backgroundStyle:
       type: Object
       value: () -> {}
@@ -129,3 +130,7 @@ Polymer
       for attr, val of attrs
         elm.attr attr, val
       return elm
+
+  _drawBackgroundChanged: () ->
+    if @drawBackground
+      @_drawBackground @backgroundStyle

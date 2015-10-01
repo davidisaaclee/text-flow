@@ -555,7 +555,7 @@
 			"file": "src/text-flow-piece.jade",
 			"settings":
 			{
-				"buffer_size": 376,
+				"buffer_size": 398,
 				"line_ending": "Unix"
 			}
 		},
@@ -1616,15 +1616,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 376,
+						"buffer_size": 398,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								333,
-								333
+								295,
+								299
 							]
 						],
 						"settings":
