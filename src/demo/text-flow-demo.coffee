@@ -1,3 +1,4 @@
+
 text = """
 attached: () ->
   unselect = null
@@ -29,6 +30,9 @@ lns =
           {tabstops: 0, text: ''}
 
 root = document.querySelector '#root'
+document.querySelector '#draw-background'
+  .addEventListener 'change', (evt) ->
+    root.drawBackground = evt.target.checked
 root.drawBackground = true
 root.backgroundStyle =
   fill: 'rgba(100, 100, 200, 0.2)'

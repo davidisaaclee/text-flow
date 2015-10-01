@@ -547,7 +547,7 @@
 			"file": "src/text-flow.coffee",
 			"settings":
 			{
-				"buffer_size": 3643,
+				"buffer_size": 3684,
 				"line_ending": "Unix"
 			}
 		},
@@ -1250,7 +1250,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -1339,7 +1339,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -1526,15 +1526,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3643,
+						"buffer_size": 3684,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2713,
-								2713
+								2205,
+								2205
 							]
 						],
 						"settings":
@@ -1603,10 +1603,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1923.0,
+						"translation.y": 1487.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{

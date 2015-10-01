@@ -20,6 +20,9 @@ Polymer
       observer: '_drawBackgroundChanged'
 
   created: () ->
+    @_shapes =
+      highlights: []
+      background: []
 
   ready: () ->
     @_mutationCallbacks = []
@@ -30,9 +33,6 @@ Polymer
       do @updateChildren
     mutObserver.observe @$.body, childList: true
     @_paper = Raphael @$.canvas, @$.body.offsetWidth, @$.body.offsetHeight
-
-    @_shapes = {}
-    @_shapes.highlights = {}
 
   attached: () ->
     @async () =>
@@ -76,12 +76,15 @@ Polymer
   onNextChildAppend: (cb) ->
     @_mutationCallbacks.push cb
 
+  _clearBackground: () ->
+    if @_shapes.background?
+      @_shapes.background.forEach (shape) -> shape.remove()
+
   _drawBackground: (attrs) ->
     fullAttrs = _.defaults attrs,
       fill: '#fcc'
 
-    if @_shapes.background?
-      @_shapes.background.forEach (shape) -> shape.remove()
+    do @_clearBackground
 
     baseline = Infinity
     rects =
@@ -123,10 +126,6 @@ Polymer
             width: rect.width + (padding.left + padding.right)
             height: rect.height + (padding.top + padding.bottom)
 
-      # borderRadius =
-      #   if attrs.borderRadius?
-      #   then attrs.borderRadius
-      #   else 0
       elm = paper.rect rect.left, rect.top, rect.width, rect.height
       for attr, val of attrs
         elm.attr attr, val
@@ -135,3 +134,5 @@ Polymer
   _drawBackgroundChanged: () ->
     if @drawBackground
       @_drawBackground @backgroundStyle
+    else
+      do @_clearBackground
