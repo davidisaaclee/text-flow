@@ -17,6 +17,7 @@ Polymer
     backgroundStyle:
       type: Object
       value: () -> {}
+      observer: '_drawBackgroundChanged'
 
   created: () ->
 
